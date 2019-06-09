@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="rv_controller" type="id"/>
+    <item name="genre_item_id" type="id"/>
+    <item name="title_text_view_id" type="id"/>
+    <item name="movie_image_view" type="id"/>
+    <item name="title_text_view" type="id"/>
+    <item name="release_date_text_view" type="id"/>
+    <item name="overview_text_view" type="id"/>
+    <item name="image_loader" type="id"/>
+    <item name="backdrop_image_view" type="id"/>
+    <item name="movie_detail_view" type="id"/>
+    <item name="main_toolbar" type="id"/>
+    <item name="backdrop_view" type="id"/>
+</resources>

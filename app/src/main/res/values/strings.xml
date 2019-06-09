@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MVVMClean</string>
+
+    <string name="title_overview">Film Details</string>
+</resources>

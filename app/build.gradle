@@ -1,0 +1,94 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.mincor.mvvmclean"
+        minSdkVersion 19
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "androidx.appcompat:appcompat:$appCompatXVersion"
+    implementation "androidx.core:core-ktx:$appCoreXVersion"
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
+
+    ///------ RECYCLER VIEW ADAPTER
+    implementation("com.mikepenz:fastadapter:$fastAdapterLib@aar") { transitive = true }
+    implementation "com.mikepenz:fastadapter-commons:$fastAdapterCommon@aar"
+    implementation "com.mikepenz:fastadapter-extensions:$fastAdapterExtension@aar"
+
+    //----- CONDUCTOR
+    implementation "com.bluelinelabs:conductor:$conductorVersion"
+    implementation "com.bluelinelabs:conductor-support:$conductorVersion"
+    implementation "com.bluelinelabs:conductor-archlifecycle:$conductorVersion"
+
+    //--- ROOM DB
+    implementation "androidx.room:room-runtime:$roomVersion"
+    implementation "androidx.room:room-ktx:$roomVersion"
+
+    //--- DI
+    implementation "org.kodein.di:kodein-di-generic-jvm:$kodeinVersion6"
+    implementation "org.kodein.di:kodein-di-framework-android-core:$kodeinVersion6"
+    implementation "org.kodein.di:kodein-di-framework-android-x:$kodeinVersion6"
+
+    //------ HTTP
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
+    implementation "ru.gildor.coroutines:kotlin-coroutines-retrofit:$retrofitCoroutinesVersion"
+    implementation("com.github.ihsanbal:LoggingInterceptor:$retrofitLogginVersion") {
+        exclude group: 'org.json', module: 'json'
+    }
+
+    ///------ VIEWS
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
+    implementation "com.github.bumptech.glide:okhttp3-integration:$glideVersion"
+
+    ///---- EVENT DISPATCHER
+    implementation "com.rasalexman.kdispatcher:kdispatcher:$kdispatcherVersion"
+
+    ///---- COROUTINES MANAGER
+    implementation "com.rasalexman.coroutinesmanager:coroutinesmanager:$coroutinesManagerVersion"
+
+    ///--- ANKO
+    // Anko Layouts
+    implementation "org.jetbrains.anko:anko-sdk27:$anko_version"
+
+    // sdk15, sdk19, sdk21, sdk23 are also available
+    implementation "org.jetbrains.anko:anko-appcompat-v7:$anko_version"
+
+    // Coroutine listeners for Anko Layouts
+    implementation "org.jetbrains.anko:anko-sdk27-coroutines:$anko_version"
+
+    // Design
+    implementation "org.jetbrains.anko:anko-design:$anko_version"
+    implementation "org.jetbrains.anko:anko-recyclerview-v7:$anko_version"
+
+    // Drawable DSL
+    implementation "com.github.infotech-group:android-drawable-dsl:$drawableDSLVersion"
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    kapt "androidx.room:room-compiler:$roomVersion"
+    kapt "com.github.bumptech.glide:compiler:$glideVersion"
+    kapt "androidx.lifecycle:lifecycle-compiler:$lifecycleVersion"
+}

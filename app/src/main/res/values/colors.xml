@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+
+
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorWhite80">#80FFFFFF</color>
+    <color name="colorWhite40">#40FFFFFF</color>
+    <color name="lightGray">#F7F8FA</color>
+    <color name="colorGrayLight">#979797</color>
+    <color name="colorMenuLine">#E5E5E5</color>
+    <color name="lightGrayStroke">#E2E8EB</color>
+    <color name="colorTabIcon">#9b9b9b</color>
+    <color name="colorLightGray">#e8e8e8</color>
+
+    <color name="colorGray20">#20000000</color>
+    <color name="colorGray30">#30000000</color>
+    <color name="colorGray80">#80000000</color>
+
+    <color name="colorPrimaryText">#212121</color>
+    <color name="colorSecondaryText">#757575</color>
+
+    <color name="colorBackdrop">#509400D3</color>
+
+    <color name="colorGrayBack">#F3F6F9</color>
+    <color name="colorProgressBar">#9400D3</color>
+
+    <color name="startColor">#4ea5b2</color>
+    <color name="endColor">#4a6187</color>
+</resources>
