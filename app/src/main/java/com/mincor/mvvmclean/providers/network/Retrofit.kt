@@ -1,7 +1,5 @@
 package com.mincor.mvvmclean.providers.network
 
-import android.net.ConnectivityManager
-import android.net.NetworkInfo
 import com.mincor.mvvmclean.BuildConfig
 import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
@@ -44,7 +42,7 @@ fun getUnsafeOkHttpClient(): OkHttpClient.Builder {
     }
 }
 
-fun createOkHttpClient(/*cm: ConnectivityManager?,  cachedDir: File*/): OkHttpClient {
+fun createOkHttpClient(/*cachedDir: File*/): OkHttpClient {
     val httpClient = getUnsafeOkHttpClient()
     httpClient.connectTimeout(60, TimeUnit.SECONDS)
     httpClient.writeTimeout(60, TimeUnit.SECONDS)
@@ -63,9 +61,6 @@ fun createOkHttpClient(/*cm: ConnectivityManager?,  cachedDir: File*/): OkHttpCl
             .loggable(BuildConfig.DEBUG)
             .setLevel(com.ihsanbal.logging.Level.BODY)
             .log(Platform.INFO)
-            //.request("Friendship")
-            //.response("Response")
-            //.addHeader("version", BuildConfig.VERSION_NAME)
             .build()
         // add logging as last interceptor
         httpClient.addInterceptor(logging)  // <-- this is the important line!
@@ -76,22 +71,9 @@ fun createOkHttpClient(/*cm: ConnectivityManager?,  cachedDir: File*/): OkHttpCl
         val originalHttpUrl = request.url()
 
         val url = originalHttpUrl.newBuilder()
-            .addQueryParameter("api_key", "026a257e7842ac9cac1fa627496b1468")
+            .addQueryParameter("api_key", BuildConfig.ApiKey)
             .build()
 
-        /*request = if (isNetworkAvailable(cm)) {
-            // if there is connectivity, we tell the request it can reuse the data for sixty seconds.
-            request.newBuilder()
-                .url(url)
-                .removeHeader("Pragma")
-                .addHeader("Content-type", "application/json")
-                .addHeader("Cache-Control", "public, max-age=$NETWORK_AVAILABLE_AGE")
-                .build()
-
-        } else {
-            // If there’s no connectivity, we ask to be given only (only-if-cached) ‘stale’ data upto 7 days ago
-            request.newBuilder().removeHeader("Pragma").addHeader("Cache-Control", "public, only-if-cached, max-stale=$NETWORK_UNAVAILABLE_STALE").build()
-        }*/
         chain.proceed(request.newBuilder()
             .url(url)
             .removeHeader("Pragma")
@@ -102,23 +84,12 @@ fun createOkHttpClient(/*cm: ConnectivityManager?,  cachedDir: File*/): OkHttpCl
 
     httpClient.addNetworkInterceptor { chain ->
         val originalResponse = chain.proceed(chain.request())
-        // если получили неизмененный ответ просто выходим
         return@addNetworkInterceptor if (SERVER_ERROR_CODES.contains(originalResponse.code())) {
             return@addNetworkInterceptor originalResponse.newBuilder().code(200).body(originalResponse.body()).build()
         } else originalResponse
     }
 
     return httpClient.build()
-}
-
-fun isNetworkAvailable(cm: ConnectivityManager?): Boolean {
-    cm?.let { manager ->
-        val activeNetwork: NetworkInfo? = manager.activeNetworkInfo
-        return (activeNetwork?.let {
-            it.isConnected && it.detailedState == NetworkInfo.DetailedState.CONNECTED
-        } ?: false)
-    }
-    return false
 }
 
 inline fun <reified F> createWebServiceApi(okHttpClient: OkHttpClient, url: String): F {

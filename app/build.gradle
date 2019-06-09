@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply from: 'keystore.gradle'//the file, containing the bintray API key
 
 android {
     compileSdkVersion 28
@@ -12,6 +13,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField 'String', "ApiKey", MOVIE_DB_API_KEY
     }
     buildTypes {
         release {
