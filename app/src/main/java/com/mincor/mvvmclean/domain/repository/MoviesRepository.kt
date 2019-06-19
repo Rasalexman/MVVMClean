@@ -26,7 +26,7 @@ class MoviesRepository(
     }
 
     suspend fun saveMovies(data: List<MovieEntity>) {
-        hasLocalResults = true
+        hasLocalResults = data.isNotEmpty()
         localDataSource.insertAll(data)
     }
 
@@ -40,6 +40,4 @@ class MoviesRepository(
         hasLocalResults = false
         remoteDataSource.clearPage()
     }
-
-
 }

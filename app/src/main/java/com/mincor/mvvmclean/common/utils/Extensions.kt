@@ -180,10 +180,9 @@ fun ImageView.load(path: String, progress: ProgressBar? = null, loaderHandler: I
         val requestOptions = RequestOptions().dontTransform()
             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .dontAnimate()
+            .override(layParams.width, layParams.height)
             .encodeFormat(Bitmap.CompressFormat.WEBP)
             .format(DecodeFormat.PREFER_RGB_565)
-
-        if (layParams != null) requestOptions.override(layParams.width, layParams.height)
 
         val reqListener = object : RequestListener<Bitmap> {
             override fun onLoadFailed(
