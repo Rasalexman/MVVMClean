@@ -15,6 +15,6 @@ private const val TAG_SERVER_URL = "server_url_const"
 
 val netModule = Kodein.Module("netModule") {
     constant(TAG_SERVER_URL) with Consts.SERVER_URL
-    bind<OkHttpClient>() with singleton { createOkHttpClient() } //instance(), instance("cache")
+    bind<OkHttpClient>() with singleton { createOkHttpClient() }
     bind<IMovieApi>() with singleton { createWebServiceApi<IMovieApi>(instance(), instance(TAG_SERVER_URL)) }
 }

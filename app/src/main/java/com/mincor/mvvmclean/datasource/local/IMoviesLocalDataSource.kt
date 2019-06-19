@@ -8,7 +8,7 @@ interface IMoviesLocalDataSource {
 
     suspend fun getById(movieId: Int): LiveData<MovieEntity?>
 
-    suspend fun saveMovies(data: List<MovieEntity>)
+    suspend fun insertAll(data: List<MovieEntity>)
 
-    suspend fun insertMovie(data: MovieEntity)
+    suspend fun insert(data: MovieEntity)
 }

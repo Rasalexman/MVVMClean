@@ -7,7 +7,7 @@ import com.mincor.mvvmclean.common.dto.emptyResult
 import com.mincor.mvvmclean.common.dto.loading
 import com.mincor.mvvmclean.common.dto.mapListTo
 import com.mincor.mvvmclean.domain.usecases.movies.GetMoviesUseCase
-import com.mincor.mvvmclean.domain.usecases.movies.GetNextMoviesUseCase
+import com.mincor.mvvmclean.domain.usecases.movies.GetRemoteMoviesUseCase
 import com.mincor.mvvmclean.viewmodel.uimodel.movies.MovieUI
 import kotlinx.coroutines.Dispatchers
 import org.kodein.di.Kodein
@@ -19,8 +19,8 @@ class MoviesViewModel(appContext: Context) : ViewModel(), KodeinAware {
 
     override val kodein: Kodein by kodein(appContext)
 
-    private val getNextUseCase: GetNextMoviesUseCase by instance()
-    private val getCachedUseCase: GetMoviesUseCase by instance()
+    private val getNextMoviesUseCase: GetRemoteMoviesUseCase by instance()
+    private val getMoviesUseCase: GetMoviesUseCase by instance()
 
     private val genreLiveId: MutableLiveData<Int> = MutableLiveData()
     private val movieList: MutableLiveData<SResult<List<MovieUI>>> = MutableLiveData()
@@ -30,15 +30,14 @@ class MoviesViewModel(appContext: Context) : ViewModel(), KodeinAware {
     private val startPageLiveData: LiveData<SResult<List<MovieUI>>> = genreLiveId.switchMap { genreId ->
         liveData(context = viewModelScope.coroutineContext + Dispatchers.IO) {
             emit(loading())
-            val result = getCachedUseCase(genreId).map { it.mapListTo() }
-            emitSource(result)
+            emitSource(getMoviesUseCase(genreId))
         }
     }
 
     private val nextPageLiveData: LiveData<SResult<List<MovieUI>>> = movieList.switchMap {
         liveData(context = viewModelScope.coroutineContext + Dispatchers.IO) {
             emit(loading())
-            emit(getNextUseCase.execute(genreLiveId.value).mapListTo())
+            emit(getNextMoviesUseCase.execute(genreLiveId.value).mapListTo())
         }
     }
 

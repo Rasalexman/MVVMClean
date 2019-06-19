@@ -16,11 +16,11 @@ class MoviesLocalDataSource(
         return moviesDao.getById(movieId)
     }
 
-    override suspend fun saveMovies(data: List<MovieEntity>) {
+    override suspend fun insertAll(data: List<MovieEntity>) {
         moviesDao.insertAll(data)
     }
 
-    override suspend fun insertMovie(data: MovieEntity) {
+    override suspend fun insert(data: MovieEntity) {
         moviesDao.insert(data)
     }
 }
