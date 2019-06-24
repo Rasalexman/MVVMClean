@@ -7,8 +7,8 @@ import com.mincor.mvvmclean.common.dto.SResult
 import com.mincor.mvvmclean.common.utils.pushController
 import com.mincor.mvvmclean.common.utils.viewModel
 import com.mincor.mvvmclean.view.base.BaseRecyclerController
-import com.mincor.mvvmclean.viewmodel.GenresViewModel
 import com.mincor.mvvmclean.view.uimodels.genres.GenreUI
+import com.mincor.mvvmclean.viewmodel.GenresViewModel
 
 class GenresController : BaseRecyclerController() {
 
@@ -16,7 +16,7 @@ class GenresController : BaseRecyclerController() {
 
     override fun onViewCreated(view: View) {
         super.onViewCreated(view)
-        categoriesViewModel.dataList.observe (this, Observer(::handlerObserverResult))
+        categoriesViewModel.getDataList().observe (this, Observer(::handlerObserverResult))
     }
 
     private fun handlerObserverResult(result: SResult<List<GenreUI>>) {
@@ -29,5 +29,10 @@ class GenresController : BaseRecyclerController() {
     override fun onItemClickHandler(item: AbstractItem<*, *>, position: Int) {
         val genreItem = (item as GenreUI)
         pushController(MoviesController(genreItem.id, genreItem.name))
+    }
+
+    override fun onDestroyView(view: View) {
+        super.onDestroyView(view)
+        categoriesViewModel.getDataList().removeObserver(::handlerObserverResult)
     }
 }
