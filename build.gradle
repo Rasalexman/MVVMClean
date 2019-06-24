@@ -21,7 +21,7 @@ buildscript {
         lifecycleVersion = "2.2.0-alpha01"
         lifecycleViewModelVersion = "2.1.0-beta01"
         lifecycleLiveDataVersion = "2.2.0-alpha01"
-        roomVersion = "2.1.0-rc01"
+        roomVersion = "2.1.0"
         conductorVersion = '3.0.0-rc1'
         kotprefVersion = '2.6.0'
         kodeinVersion6 = "6.2.1"

@@ -24,7 +24,6 @@ import com.mincor.mvvmclean.common.utils.childrenVisible
 import com.mincor.mvvmclean.common.utils.clear
 import com.mincor.mvvmclean.common.utils.colorLazy
 import com.mincor.mvvmclean.common.utils.gradientBg
-import com.mincor.room.presentation.base.mvp.IBaseView
 import com.rasalexman.kdispatcher.IKDispatcher
 import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.centerInParent
@@ -53,29 +52,9 @@ abstract class BaseController : ViewBindController, IKDispatcher {
 
     override fun onViewCreated(view: View) {
         attachListeners()
-        (this as? IBaseView<*>)?.apply {
-            presenter.onViewCreated(this)
-        }
-    }
-
-    override fun onAttach(view: View) {
-        super.onAttach(view)
-        (this as? IBaseView<*>)?.apply {
-            presenter.onViewAttached()
-        }
-    }
-
-    override fun onDetach(view: View) {
-        super.onDetach(view)
-        (this as? IBaseView<*>)?.apply {
-            presenter.onViewDetached()
-        }
     }
 
     override fun onDestroyView(view: View) {
-        (this as? IBaseView<*>)?.apply {
-            presenter.onDestroyView()
-        }
         toolBar = null
         hideLoading()
         detachListeners()

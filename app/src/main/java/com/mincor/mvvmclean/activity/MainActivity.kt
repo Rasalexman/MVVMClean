@@ -12,7 +12,7 @@ import org.jetbrains.anko.matchParent
 class MainActivity : AppCompatActivity(), ActionBarProvider {
 
     // главный роутер приложения
-    var mainRouter: Router? = null
+    private var mainRouter: Router? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
