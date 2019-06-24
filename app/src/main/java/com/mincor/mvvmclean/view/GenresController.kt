@@ -8,7 +8,7 @@ import com.mincor.mvvmclean.common.utils.pushController
 import com.mincor.mvvmclean.common.utils.viewModel
 import com.mincor.mvvmclean.view.base.BaseRecyclerController
 import com.mincor.mvvmclean.viewmodel.GenresViewModel
-import com.mincor.mvvmclean.viewmodel.uimodel.genres.GenreUI
+import com.mincor.mvvmclean.view.uimodels.genres.GenreUI
 
 class GenresController : BaseRecyclerController() {
 

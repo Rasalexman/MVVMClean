@@ -9,7 +9,7 @@ import com.mincor.mvvmclean.common.utils.pushController
 import com.mincor.mvvmclean.common.utils.viewModel
 import com.mincor.mvvmclean.view.base.BaseBackRecyclerController
 import com.mincor.mvvmclean.viewmodel.MoviesViewModel
-import com.mincor.mvvmclean.viewmodel.uimodel.movies.MovieUI
+import com.mincor.mvvmclean.view.uimodels.movies.MovieUI
 
 open class MoviesController :
     BaseBackRecyclerController {

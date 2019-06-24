@@ -1,4 +1,4 @@
-package com.mincor.mvvmclean.viewmodel.uimodel.base
+package com.mincor.mvvmclean.view.uimodels.base
 
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.items.AbstractItem

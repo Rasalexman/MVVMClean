@@ -10,7 +10,7 @@ import com.mincor.mvvmclean.common.consts.Consts
 import com.mincor.mvvmclean.common.utils.clear
 import com.mincor.mvvmclean.common.utils.color
 import com.mincor.mvvmclean.common.utils.dip8
-import com.mincor.mvvmclean.viewmodel.uimodel.genres.GenreUI
+import com.mincor.mvvmclean.view.uimodels.genres.GenreUI
 import group.infotech.drawable.dsl.*
 import org.jetbrains.anko.*
 

@@ -8,7 +8,7 @@ import com.mincor.mvvmclean.common.dto.loading
 import com.mincor.mvvmclean.common.dto.mapListTo
 import com.mincor.mvvmclean.domain.usecases.movies.GetMoviesUseCase
 import com.mincor.mvvmclean.domain.usecases.movies.GetRemoteMoviesUseCase
-import com.mincor.mvvmclean.viewmodel.uimodel.movies.MovieUI
+import com.mincor.mvvmclean.view.uimodels.movies.MovieUI
 import kotlinx.coroutines.Dispatchers
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware

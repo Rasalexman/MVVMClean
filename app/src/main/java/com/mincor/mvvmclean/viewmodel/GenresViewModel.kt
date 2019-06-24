@@ -8,7 +8,7 @@ import com.mincor.mvvmclean.common.dto.SResult
 import com.mincor.mvvmclean.common.dto.loading
 import com.mincor.mvvmclean.common.dto.mapListTo
 import com.mincor.mvvmclean.domain.usecases.genres.GetGenresUseCase
-import com.mincor.mvvmclean.viewmodel.uimodel.genres.GenreUI
+import com.mincor.mvvmclean.view.uimodels.genres.GenreUI
 import kotlinx.coroutines.Dispatchers
 
 class GenresViewModel(

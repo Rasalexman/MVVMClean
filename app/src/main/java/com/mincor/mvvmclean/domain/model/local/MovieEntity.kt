@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.mincor.mvvmclean.common.consts.Consts
 import com.mincor.mvvmclean.domain.model.base.IConvertableTo
-import com.mincor.mvvmclean.viewmodel.uimodel.movies.MovieUI
+import com.mincor.mvvmclean.view.uimodels.movies.MovieUI
 
 @Entity
 data class MovieEntity(

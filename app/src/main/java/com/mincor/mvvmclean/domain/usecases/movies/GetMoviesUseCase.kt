@@ -6,7 +6,7 @@ import androidx.lifecycle.map
 import com.mincor.mvvmclean.common.dto.SResult
 import com.mincor.mvvmclean.common.dto.mapListTo
 import com.mincor.mvvmclean.domain.repository.MoviesRepository
-import com.mincor.mvvmclean.viewmodel.uimodel.movies.MovieUI
+import com.mincor.mvvmclean.view.uimodels.movies.MovieUI
 
 class GetMoviesUseCase(
     private val repository: MoviesRepository,

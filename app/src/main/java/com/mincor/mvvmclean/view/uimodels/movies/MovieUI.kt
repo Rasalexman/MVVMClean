@@ -1,11 +1,11 @@
-package com.mincor.mvvmclean.viewmodel.uimodel.movies
+package com.mincor.mvvmclean.view.uimodels.movies
 
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import com.mincor.mvvmclean.common.consts.Consts
 import com.mincor.mvvmclean.view.viewholders.MovieViewHolder
-import com.mincor.mvvmclean.viewmodel.uimodel.base.BaseRecyclerUI
+import com.mincor.mvvmclean.view.uimodels.base.BaseRecyclerUI
 import org.jetbrains.anko.AnkoContext
 
 data class MovieUI(

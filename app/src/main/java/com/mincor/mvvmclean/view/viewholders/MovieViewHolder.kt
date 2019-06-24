@@ -6,12 +6,11 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.core.view.marginTop
 import com.mikepenz.fastadapter.FastAdapter
 import com.mincor.mvvmclean.R
 import com.mincor.mvvmclean.common.consts.Consts
 import com.mincor.mvvmclean.common.utils.*
-import com.mincor.mvvmclean.viewmodel.uimodel.movies.MovieUI
+import com.mincor.mvvmclean.view.uimodels.movies.MovieUI
 import org.jetbrains.anko.*
 
 class MovieViewHolder(view: View) : FastAdapter.ViewHolder<MovieUI>(view)  {
