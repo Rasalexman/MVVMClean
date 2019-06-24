@@ -10,6 +10,6 @@ import org.kodein.di.generic.instance
 import org.kodein.di.generic.provider
 
 val databaseModule = Kodein.Module("database_module") {
-    bind<IGenresDao>() with provider { kodein.direct.instance<MoviesDatabase>().getGenresDao() }
-    bind<IMoviesDao>() with provider { kodein.direct.instance<MoviesDatabase>().getMoviesDao() }
+    bind<IGenresDao>() with provider { instance<MoviesDatabase>().getGenresDao() }
+    bind<IMoviesDao>() with provider { instance<MoviesDatabase>().getMoviesDao() }
 }
