@@ -12,10 +12,10 @@ sealed class SResult<out T : Any> {
     class Error(val code: Int, val message: String) : SResult<Nothing>()
 }
 
-inline fun<reified T : Any> successResult(data: T) = SResult.Success(data)
+inline fun <reified T : Any> successResult(data: T) = SResult.Success(data)
 fun loading() = SResult.Loading
 fun emptyResult() = SResult.Empty
-fun errorResult(code:Int, message: String) = SResult.Error(code, message)
+fun errorResult(code: Int, message: String) = SResult.Error(code, message)
 
 inline fun <reified O : Any, reified I : IConvertableTo<O>> SResult<List<I>>.mapListTo(): SResult<List<O>> {
     return when (this) {

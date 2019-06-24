@@ -21,9 +21,13 @@ class GenresRepository(
         }
     }
 
-    suspend fun updateGenres() = remoteDataSource.getRemoteGenresList().mapListTo().also {
-        if (it is SResult.Success) {
-            localDataSource.insertGenres(it.data)
-        }
-    }
+    private suspend fun updateGenres() =
+        remoteDataSource
+            .getRemoteGenresList()
+            .mapListTo()
+            .also {
+                if (it is SResult.Success) {
+                    localDataSource.insertGenres(it.data)
+                }
+            }
 }
