@@ -12,22 +12,20 @@ class GenresRepository(
     private val localDataSource: IGenresLocalDataSource
 
 ) {
-    suspend fun getGenresList(): SResult<List<GenreEntity>> {
-        val localList = localDataSource.getGenresList()
-        return if (localList.isNotEmpty()) {
-            successResult(localList)
-        } else {
-            updateGenres()
-        }
-    }
+    suspend fun getLocalGenreList(): SResult.Success<List<GenreEntity>>
+            = successResult(localDataSource.getGenresList())
 
-    private suspend fun updateGenres() =
-        remoteDataSource
-            .getRemoteGenresList()
+    suspend fun saveGenres(genresList: List<GenreEntity>) =
+        localDataSource.insertGenres(genresList)
+
+    suspend fun getRemoteGenresList() = remoteDataSource
+        .getRemoteGenresList()
+
+    /*private suspend fun updateGenres() =
             .mapListTo()
             .also {
                 if (it is SResult.Success) {
-                    localDataSource.insertGenres(it.data)
+
                 }
-            }
+            }*/
 }

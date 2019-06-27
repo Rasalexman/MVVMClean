@@ -18,7 +18,7 @@ class GenresViewModel(
     private val dataList: LiveData<out SResult<List<GenreUI>>> =
         liveData(context = viewModelScope.coroutineContext + Dispatchers.IO) {
             emit(loading())
-            emit(getGenresUseCase.execute().mapListTo())
+            emit(getGenresUseCase.execute())
         }
 
     fun getDataList() = dataList
