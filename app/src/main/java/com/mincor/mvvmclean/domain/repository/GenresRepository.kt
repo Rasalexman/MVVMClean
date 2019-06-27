@@ -1,7 +1,6 @@
 package com.mincor.mvvmclean.domain.repository
 
 import com.mincor.mvvmclean.common.dto.SResult
-import com.mincor.mvvmclean.common.dto.mapListTo
 import com.mincor.mvvmclean.common.dto.successResult
 import com.mincor.mvvmclean.datasource.local.IGenresLocalDataSource
 import com.mincor.mvvmclean.datasource.remote.IGenresRemoteDataSource
@@ -20,12 +19,4 @@ class GenresRepository(
 
     suspend fun getRemoteGenresList() = remoteDataSource
         .getRemoteGenresList()
-
-    /*private suspend fun updateGenres() =
-            .mapListTo()
-            .also {
-                if (it is SResult.Success) {
-
-                }
-            }*/
 }
