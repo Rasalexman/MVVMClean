@@ -8,7 +8,7 @@ import com.mincor.mvvmclean.domain.repository.GenresRepository
 class GetRemoteGenresUseCase(
     private val repository: GenresRepository
 ) {
-    suspend fun execute() =
+    suspend fun execute(): SResult<List<GenreEntity>> =
         repository
             .getRemoteGenresList()
             .mapListTo()

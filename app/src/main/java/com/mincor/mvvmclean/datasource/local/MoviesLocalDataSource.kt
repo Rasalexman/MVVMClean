@@ -12,16 +12,14 @@ class MoviesLocalDataSource(
     private val moviesDao: IMoviesDao
 ) : IMoviesLocalDataSource {
 
-    override suspend fun getAll(genreId: Int): SResult.Success<List<MovieEntity>> {
-        return successResult(moviesDao.getAll(genreId))
-    }
+    override suspend fun getAll(genreId: Int): SResult.Success<List<MovieEntity>> =
+        successResult(moviesDao.getAll(genreId))
 
-    override suspend fun getById(movieId: Int): LiveData<SResult<MovieEntity>> {
-        return moviesDao.getById(movieId).map { localMovie ->
+    override suspend fun getById(movieId: Int): LiveData<SResult<MovieEntity>> =
+        moviesDao.getById(movieId).map { localMovie ->
             if(localMovie?.hasDetails == true) successResult(localMovie)
             else emptyResult()
         }
-    }
 
     override suspend fun insertAll(data: List<MovieEntity>) {
         moviesDao.insertAll(data)

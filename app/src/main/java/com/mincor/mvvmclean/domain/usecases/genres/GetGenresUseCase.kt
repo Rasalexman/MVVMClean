@@ -10,7 +10,7 @@ class GetGenresUseCase(
 ) {
     suspend fun execute(): SResult<List<GenreUI>> {
         return getLocalGenresUseCase.execute().let { localResultList ->
-            if(localResultList.data.isNotEmpty()) localResultList
+            if(localResultList is SResult.Success && localResultList.data.isNotEmpty()) localResultList
             else getRemoteGenresUseCase.execute()
         }.mapListTo()
     }
