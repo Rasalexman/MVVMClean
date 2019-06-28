@@ -23,6 +23,7 @@ import androidx.lifecycle.*
 import com.bluelinelabs.conductor.Controller
 import com.bluelinelabs.conductor.Router
 import com.bluelinelabs.conductor.RouterTransaction
+import com.bluelinelabs.conductor.archlifecycle.LifecycleController
 import com.bluelinelabs.conductor.changehandler.HorizontalChangeHandler
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.DecodeFormat
@@ -373,7 +374,7 @@ fun Controller.popCurrentController() {
 /**
  * KODEIN EXT
  **/
-inline fun <reified VM : ViewModel, T> T.viewModel(): Lazy<VM> where T : KodeinAware, T : Controller {
+inline fun <reified VM : ViewModel, T> T.viewModel(): Lazy<VM> where T : KodeinAware, T : LifecycleController {
     return lazy(LazyThreadSafetyMode.NONE) {
         ViewModelProviders.of(this.activity as AppCompatActivity, direct.instance<ViewModelFactory>()).get(VM::class.java)
     }
