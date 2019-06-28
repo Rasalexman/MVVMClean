@@ -20,12 +20,15 @@ class MainActivity : AppCompatActivity(), ActionBarProvider {
         // attach controller to Conductor router
         val container = frameLayout { lparams(matchParent, matchParent) }
 
-        mainRouter = Conductor.attachRouter(this, container, savedInstanceState).apply {
-            setPopsLastView(true)
-            if(!hasRootController()) {
-                setRoot(RouterTransaction.with(GenresController()))
-            }
-        }
+        mainRouter =
+            Conductor
+                .attachRouter(this, container, savedInstanceState)
+                .apply {
+                    setPopsLastView(true)
+                    if (!hasRootController()) {
+                        setRoot(RouterTransaction.with(GenresController()))
+                    }
+                }
     }
 
     override fun onBackPressed() {
