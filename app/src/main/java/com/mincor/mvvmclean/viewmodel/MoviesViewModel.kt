@@ -5,7 +5,6 @@ import androidx.lifecycle.*
 import com.mincor.mvvmclean.common.dto.SResult
 import com.mincor.mvvmclean.common.dto.emptyResult
 import com.mincor.mvvmclean.common.dto.loading
-import com.mincor.mvvmclean.common.dto.mapListTo
 import com.mincor.mvvmclean.domain.usecases.movies.GetMoviesUseCase
 import com.mincor.mvvmclean.domain.usecases.movies.GetRemoteMoviesUseCase
 import com.mincor.mvvmclean.view.uimodels.movies.MovieUI
@@ -37,7 +36,7 @@ class MoviesViewModel(appContext: Context) : ViewModel(), KodeinAware {
     private val nextPageLiveData: LiveData<SResult<List<MovieUI>>> = movieList.switchMap {
         liveData(context = viewModelScope.coroutineContext + Dispatchers.IO) {
             emit(loading())
-            emit(getNextMoviesUseCase.execute(genreLiveId.value).mapListTo())
+            emit(getNextMoviesUseCase.execute(genreLiveId.value))
         }
     }
 

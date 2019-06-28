@@ -3,26 +3,20 @@ package com.mincor.mvvmclean.domain.usecases.movies
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.map
+import androidx.lifecycle.switchMap
 import com.mincor.mvvmclean.common.dto.SResult
-import com.mincor.mvvmclean.common.dto.emptyResult
-import com.mincor.mvvmclean.common.dto.successResult
 import com.mincor.mvvmclean.domain.model.local.MovieEntity
-import com.mincor.mvvmclean.domain.repository.MoviesRepository
+import com.mincor.mvvmclean.domain.usecases.details.GetLocalDetailsUseCase
+import com.mincor.mvvmclean.domain.usecases.details.GetRemoteDetailsUseCase
 
 class GetMovieDetailUseCase(
-    private val moviesRepository: MoviesRepository
-) : ((Int)->LiveData<SResult<MovieEntity>>){
+    private val getLocalDetailsUseCase: GetLocalDetailsUseCase,
+    private val getRemoteDetailsUseCase: GetRemoteDetailsUseCase
+) : ((Int) -> LiveData<SResult<MovieEntity>>) {
     override fun invoke(movieId: Int): LiveData<SResult<MovieEntity>> {
-        return liveData {
-            emitSource(
-                moviesRepository.getLocalMovieById(movieId).map { localMovie ->
-                    if(localMovie?.hasDetails == true) successResult(localMovie)
-                    else emptyResult()
-                }
-            )
-            val remoteResult = moviesRepository.getRemoteMovieById(movieId)
-            if(remoteResult is SResult.Success) moviesRepository.saveMovie(remoteResult.data.apply { hasDetails = true })
-            else emit(remoteResult)
+        return getLocalDetailsUseCase(movieId).switchMap {
+            if(it is SResult.Success) liveData<SResult<MovieEntity>> { emit(it) }
+            else getRemoteDetailsUseCase(movieId)
         }
     }
 }

@@ -13,7 +13,7 @@ class GenresRepository(
 
 ) {
     suspend fun getLocalGenreList(): SResult.Success<List<GenreEntity>> =
-        successResult(localDataSource.getGenresList())
+        localDataSource.getGenresList()
 
     suspend fun saveGenres(genresList: List<GenreEntity>) =
         localDataSource.insertGenres(genresList)

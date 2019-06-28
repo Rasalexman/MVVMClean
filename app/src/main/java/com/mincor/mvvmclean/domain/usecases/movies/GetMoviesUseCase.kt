@@ -19,6 +19,6 @@ class GetMoviesUseCase(
             repository.clear()
             emit(getCachedMoviesUseCase.execute(genreId))
             emit(getRemoteMoviesUseCase.execute(genreId))
-        }.map { it.mapListTo() } // we can do the same thing by `.mapListTo()` with every execute function of useCase
+        }
     }
 }

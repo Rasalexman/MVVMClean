@@ -1,5 +1,6 @@
 package com.mincor.mvvmclean.domain.repository
 
+import androidx.lifecycle.LiveData
 import com.mincor.mvvmclean.common.dto.SResult
 import com.mincor.mvvmclean.common.dto.mapListTo
 import com.mincor.mvvmclean.common.dto.mapTo
@@ -15,9 +16,12 @@ class MoviesRepository(
     var hasLocalResults = false
         private set
 
-    suspend fun getLocalMovies(genreId: Int) = localDataSource.getAll(genreId).apply {
-        hasLocalResults = this.isNotEmpty()
-    }
+    suspend fun getLocalMovies(genreId: Int): SResult<List<MovieEntity>> =
+        localDataSource
+            .getAll(genreId)
+            .apply {
+                hasLocalResults = this.data.isNotEmpty()
+            }
 
     suspend fun getRemoteMovies(genreId: Int): SResult<List<MovieEntity>> {
         return remoteDataSource
@@ -32,9 +36,11 @@ class MoviesRepository(
 
     suspend fun saveMovie(data: MovieEntity) = localDataSource.insert(data)
 
-    suspend fun getLocalMovieById(movieId: Int) = localDataSource.getById(movieId)
+    suspend fun getLocalMovieById(movieId: Int): LiveData<SResult<MovieEntity>> =
+        localDataSource.getById(movieId)
 
-    suspend fun getRemoteMovieById(movieId: Int) = remoteDataSource.getMovieDetails(movieId).mapTo()
+    suspend fun getRemoteMovieById(movieId: Int): SResult<MovieEntity> =
+        remoteDataSource.getMovieDetails(movieId).mapTo()
 
     fun clear() {
         hasLocalResults = false
