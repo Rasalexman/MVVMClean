@@ -11,13 +11,13 @@ import org.jetbrains.anko.matchParent
 
 class MainActivity : AppCompatActivity(), ActionBarProvider {
 
-    // главный роутер приложения
+    // our main router
     private var mainRouter: Router? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // назначаем контейнер для приложения
+        // attach controller to Conductor router
         val container = frameLayout { lparams(matchParent, matchParent) }
 
         mainRouter = Conductor.attachRouter(this, container, savedInstanceState).apply {

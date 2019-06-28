@@ -23,6 +23,7 @@ class GenresController : BaseRecyclerController() {
         when(result) {
             is SResult.Loading -> showLoading()
             is SResult.Success -> showItems(result.data)
+            is SResult.Error -> showError(result.message)
         }
     }
 
