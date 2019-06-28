@@ -12,11 +12,11 @@ import com.mincor.mvvmclean.viewmodel.GenresViewModel
 
 class GenresController : BaseRecyclerController() {
 
-    private val categoriesViewModel: GenresViewModel by viewModel()
+    private val genresViewModel: GenresViewModel by viewModel()
 
     override fun onViewCreated(view: View) {
         super.onViewCreated(view)
-        categoriesViewModel.getDataList().observe (this, Observer(::handlerObserverResult))
+        genresViewModel.getDataList().observe (this, Observer(::handlerObserverResult))
     }
 
     private fun handlerObserverResult(result: SResult<List<GenreUI>>) {
@@ -34,6 +34,6 @@ class GenresController : BaseRecyclerController() {
 
     override fun onDestroyView(view: View) {
         super.onDestroyView(view)
-        categoriesViewModel.getDataList().removeObserver(::handlerObserverResult)
+        genresViewModel.getDataList().removeObserver(::handlerObserverResult)
     }
 }
