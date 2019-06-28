@@ -2,7 +2,6 @@ package com.mincor.mvvmclean.domain.usecases.movies
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
-import androidx.lifecycle.map
 import androidx.lifecycle.switchMap
 import com.mincor.mvvmclean.common.dto.SResult
 import com.mincor.mvvmclean.domain.model.local.MovieEntity
