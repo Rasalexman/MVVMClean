@@ -5,5 +5,5 @@ import com.mincor.mvvmclean.domain.model.local.GenreEntity
 
 interface IGenresMemoryDataSource {
     suspend fun putGenresIntoMemoryCache(genresList: List<GenreEntity>)
-    suspend fun getGenresFromMemoryCache(): SResult<List<GenreEntity>>
+    suspend fun getGenresFromMemoryCache(): SResult.Success<List<GenreEntity>>
 }

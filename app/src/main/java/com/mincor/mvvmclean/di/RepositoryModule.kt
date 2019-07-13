@@ -8,6 +8,6 @@ import org.kodein.di.generic.instance
 import org.kodein.di.generic.singleton
 
 val repositoryModule = Kodein.Module("repository_module") {
-    bind<GenresRepository>() with singleton { GenresRepository(instance(), instance()) }
+    bind<GenresRepository>() with singleton { GenresRepository(instance(), instance(), instance()) }
     bind<MoviesRepository>() with singleton { MoviesRepository(instance(), instance()) }
 }
