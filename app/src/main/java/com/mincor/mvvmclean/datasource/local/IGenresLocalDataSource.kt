@@ -6,7 +6,4 @@ import com.mincor.mvvmclean.domain.model.local.GenreEntity
 interface IGenresLocalDataSource {
     suspend fun getGenresList(): SResult<List<GenreEntity>>
     suspend fun insertGenres(data: List<GenreEntity>)
-
-    suspend fun putGenresInCache(genresList: List<GenreEntity>)
-    suspend fun getGenresFromCache(): SResult.Success<List<GenreEntity>>
 }
