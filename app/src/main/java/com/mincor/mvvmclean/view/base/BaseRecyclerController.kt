@@ -101,7 +101,7 @@ abstract class BaseRecyclerController : BaseController {
 
     // менеджер лайаута
     protected open fun setRVLayoutManager() {
-        layoutManager ?: this.activity?.let { context ->
+        this.activity?.let { context ->
             layoutManager = LinearLayoutManager(context, layoutManagerOrientation, false)
         }
         recycler?.layoutManager = layoutManager
