@@ -8,6 +8,6 @@ import org.kodein.di.generic.singleton
 
 val localDataSourceModule = Kodein.Module("local_data_source_module") {
     bind<IGenresLocalDataSource>() with singleton { GenresLocalDataSource(instance()) }
-    bind<IGenresMemoryDataSource>() with singleton { GenresMemoryDataSource() }
+    bind<IGenresCacheDataSource>() with singleton { GenresCacheDataSource() }
     bind<IMoviesLocalDataSource>() with singleton { MoviesLocalDataSource(instance()) }
 }
