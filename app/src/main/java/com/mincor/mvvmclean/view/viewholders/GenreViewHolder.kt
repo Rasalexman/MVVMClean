@@ -18,7 +18,7 @@ class GenreViewHolder(view: View) : FastAdapter.ViewHolder<GenreUI>(view) {
 
     private val titleTextView = view.find<TextView>(R.id.title_text_view_id)
 
-    override fun bindView(item: GenreUI, payloads: MutableList<Any>?) {
+    override fun bindView(item: GenreUI, payloads: MutableList<Any>) {
         titleTextView.text = item.name
     }
 

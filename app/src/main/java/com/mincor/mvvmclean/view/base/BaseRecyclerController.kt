@@ -5,16 +5,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.mikepenz.fastadapter.IAdapter
-import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter
+import com.mikepenz.fastadapter.FastAdapter
+import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.fastadapter.items.AbstractItem
-import com.mikepenz.fastadapter.listeners.OnClickListener
-import com.mikepenz.fastadapter_extensions.items.ProgressItem
+import com.mikepenz.fastadapter.ui.items.ProgressItem
 import com.mincor.mvvmclean.R
 import com.mincor.mvvmclean.common.utils.EndlessRecyclerViewScrollListener
 import com.mincor.mvvmclean.common.utils.ScrollPosition
 import com.mincor.mvvmclean.common.utils.colorLazy
-import com.mincor.mvvmclean.common.utils.log
 import org.jetbrains.anko.AnkoComponent
 import org.jetbrains.anko.AnkoContext
 import org.jetbrains.anko.backgroundColor
@@ -23,9 +21,10 @@ import org.jetbrains.anko.recyclerview.v7.recyclerView
 
 /**
  * Created by Alex on 07.01.2017.
+ * modified at 14.07.2019
  */
 
-abstract class BaseRecyclerController : BaseController, OnClickListener<AbstractItem<*, *>> {
+abstract class BaseRecyclerController : BaseController {
 
     constructor()
     constructor(args: Bundle) : super(args)
@@ -40,7 +39,7 @@ abstract class BaseRecyclerController : BaseController, OnClickListener<Abstract
 
     protected var recycler: RecyclerView? = null
     // current iterating item
-    protected var currentItem: AbstractItem<*, *>? = null
+    protected var currentItem: AbstractItem<*>? = null
 
     // layout manager for recycler
     protected open var layoutManager: RecyclerView.LayoutManager? = null
@@ -50,12 +49,16 @@ abstract class BaseRecyclerController : BaseController, OnClickListener<Abstract
     private var scrollListener: EndlessRecyclerViewScrollListener? = null
     // custom decorator
     protected open var itemDecoration: RecyclerView.ItemDecoration? = null
+
+    // main adapter items holder
+    private val itemAdapter: ItemAdapter<AbstractItem<*>> = ItemAdapter()
     // save our FastAdapter
-    protected var mFastItemAdapter: FastItemAdapter<AbstractItem<*, *>>? = null
+    protected val mFastItemAdapter:FastAdapter<*> by lazy { FastAdapter.with(itemAdapter) }
+
     // последняя сохраненная позиция (index & offset) прокрутки ленты
     protected open val previousPosition: ScrollPosition? = ScrollPosition()
     // крутилка прогресса)
-    private val progressItem = ProgressItem().withEnabled(false)
+    private val progressItem by lazy { ProgressItem().apply { isEnabled = false } }
     // корличесвто элементов до того как пойдет запрос на скролл пагинацию
     protected open val visibleScrollCount get() = SCROLL_VISIBLE_THRESHOLD
 
@@ -68,31 +71,30 @@ abstract class BaseRecyclerController : BaseController, OnClickListener<Abstract
         super.onViewCreated(view)
         setRVLayoutManager()     // менеджер лайаута
         setItemDecorator()       // декорации
-        createAdapter()          // адаптер
         setRVCAdapter()          // назначение
         addEventHook()           // для нажатия внутри айтемов
     }
 
-    open fun showItems(list: List<AbstractItem<*, *>>) {
+    open fun showItems(list: List<AbstractItem<*>>) {
         if (list.isNotEmpty()) {
-            mFastItemAdapter?.apply {
+            itemAdapter.apply {
                 clear()
                 setNewList(list)
             }
         }
     }
 
-    open fun addNewItems(list: List<AbstractItem<*, *>>) {
+    open fun addNewItems(list: List<AbstractItem<*>>) {
         if (list.isNotEmpty()) {
-            mFastItemAdapter?.add(0, list)
+            itemAdapter.add(0, list)
             scrollToTop()
         }
     }
 
-    open fun addItems(list: List<AbstractItem<*, *>>) {
+    open fun addItems(list: List<AbstractItem<*>>) {
         hideLoading()
         if (list.isNotEmpty()) {
-            mFastItemAdapter?.add(list)
+            itemAdapter.add(list)
         }
     }
 
@@ -111,16 +113,11 @@ abstract class BaseRecyclerController : BaseController, OnClickListener<Abstract
         }
     }
 
-    // создаем адаптеры
-    private fun createAdapter() {
-        mFastItemAdapter ?: let {
-            mFastItemAdapter = FastItemAdapter()
-            addClickListenerToAdapter()
-        }
-    }
-
     protected open fun addClickListenerToAdapter() {
-        mFastItemAdapter?.withOnClickListener(this)
+        mFastItemAdapter.onClickListener = { _, _, item, position ->
+            if(item is AbstractItem<*>) onItemClickHandler(item, position)
+            false
+        }
     }
 
     //назначаем адаптеры
@@ -142,7 +139,7 @@ abstract class BaseRecyclerController : BaseController, OnClickListener<Abstract
 
     // слушатель бесконечная прокрутка
     protected fun setRVCScroll() {
-        scrollListener = scrollListener ?: object : EndlessRecyclerViewScrollListener(layoutManager, visibleScrollCount) {
+        scrollListener = object : EndlessRecyclerViewScrollListener(layoutManager, visibleScrollCount) {
             override fun onLoadMore(page: Int, totalItemsCount: Int) {
                 loadNextPage(page)
             }
@@ -153,32 +150,21 @@ abstract class BaseRecyclerController : BaseController, OnClickListener<Abstract
     // Показываем загрузку
     override fun showLoading() {
         hideLoading()
-        mFastItemAdapter?.add(progressItem)
+        itemAdapter.add(progressItem)
         isLoading = true
     }
 
     // прячем загрузку
     override fun hideLoading() {
-        val position = mFastItemAdapter?.getAdapterPosition(progressItem) ?: -1
-        if (position > -1) mFastItemAdapter?.remove(position)
+        val position = itemAdapter.getAdapterPosition(progressItem)
+        if (position > -1) itemAdapter.remove(position)
         isLoading = false
     }
 
     //--------- CALL BACKS FOR RECYCLER VIEW ACTIONS
     protected open fun loadNextPage(page: Int) {}
 
-    override fun onClick(
-        v: View?,
-        adapter: IAdapter<AbstractItem<*, *>>?,
-        item: AbstractItem<*, *>,
-        position: Int
-    ): Boolean {
-        log { "ITEM CLICKED ON POSITION $position" }
-        onItemClickHandler(item, position)
-        return false
-    }
-
-    protected open fun onItemClickHandler(item: AbstractItem<*, *>, position: Int) {}
+    protected open fun onItemClickHandler(item: AbstractItem<*>, position: Int) = Unit
 
     override fun onDetach(view: View) {
         savePreviousPosition()
@@ -221,21 +207,18 @@ abstract class BaseRecyclerController : BaseController, OnClickListener<Abstract
         recycler?.stopScroll()
     }
 
-    fun clearAdapter() {
+    private fun clearAdapter() {
         scrollListener?.resetState()
-        mFastItemAdapter?.apply {
-            clear()
-            notifyAdapterDataSetChanged()
-        }
+        itemAdapter.clear()
+        mFastItemAdapter.notifyAdapterDataSetChanged()
+        mFastItemAdapter.notifyDataSetChanged()
     }
 
     private fun clearFastAdapter() {
-        mFastItemAdapter?.apply {
-            withOnClickListener(null)
-            eventHooks?.clear()
-            clear()
-            notifyDataSetChanged()
-            notifyAdapterDataSetChanged()
+        clearAdapter()
+        mFastItemAdapter.apply {
+            onClickListener = null
+            eventHooks.clear()
         }
     }
 
@@ -257,9 +240,11 @@ abstract class BaseRecyclerController : BaseController, OnClickListener<Abstract
     }
 
     protected fun removeCurrentItemFromAdapter() {
-        mFastItemAdapter?.getAdapterPosition(currentItem)?.let {
-            mFastItemAdapter?.remove(it)
-            currentItem = null
+        currentItem?.let {
+            itemAdapter.getAdapterPosition(it).let { position ->
+                itemAdapter.remove(position)
+                currentItem = null
+            }
         }
     }
 
@@ -267,7 +252,6 @@ abstract class BaseRecyclerController : BaseController, OnClickListener<Abstract
         clearFastAdapter()
         clearRecycler()
 
-        mFastItemAdapter = null
         layoutManager = null
         scrollListener = null
         itemDecoration = null

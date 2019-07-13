@@ -21,7 +21,7 @@ class MovieViewHolder(view: View) : FastAdapter.ViewHolder<MovieUI>(view)  {
     private val overviewTextView: TextView = view.find(R.id.overview_text_view)
     private var progressBar: ProgressBar = view.find(R.id.image_loader)
 
-    override fun bindView(item: MovieUI, payloads: MutableList<Any>?) {
+    override fun bindView(item: MovieUI, payloads: MutableList<Any>) {
         imageView.load(item.fullPosterUrl, progressBar)
         titleTextView.text = item.title
         releaseTextView.text = item.releaseDate

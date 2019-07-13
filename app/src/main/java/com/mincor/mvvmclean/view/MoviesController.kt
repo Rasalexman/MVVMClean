@@ -30,7 +30,7 @@ open class MoviesController :
         moviesByGenreViewModel.getNextPage().observe(this, Observer(::handleNextObserverResult))
     }
 
-    override fun onItemClickHandler(item: AbstractItem<*, *>, position: Int) {
+    override fun onItemClickHandler(item: AbstractItem<*>, position: Int) {
         val movieItem = item as MovieUI
         pushController(MovieDetailsController(movieItem.id))
     }

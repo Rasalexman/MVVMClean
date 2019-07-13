@@ -22,13 +22,13 @@ data class MovieUI(
     val releaseDate: String,
     val adult: Boolean,
     val overview: String
-) : BaseRecyclerUI<MovieUI, MovieViewHolder>() {
+) : BaseRecyclerUI<MovieViewHolder>() {
     override fun createView(ctx: Context, parent: ViewGroup?): View =
         MovieViewHolder.createView(AnkoContext.Companion.create(ctx, this))
     override fun getViewHolder(v: View) = MovieViewHolder(v)
 
     init {
-        withIdentifier(id.toLong())
+        identifier = id.toLong()
     }
 
     val fullPosterUrl: String

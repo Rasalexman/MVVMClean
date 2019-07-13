@@ -27,7 +27,7 @@ class GenresController : BaseRecyclerController() {
         }
     }
 
-    override fun onItemClickHandler(item: AbstractItem<*, *>, position: Int) {
+    override fun onItemClickHandler(item: AbstractItem<*>, position: Int) {
         val genreItem = (item as GenreUI)
         pushController(MoviesController(genreItem.id, genreItem.name))
     }

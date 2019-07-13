@@ -18,11 +18,12 @@ abstract class BaseSwipeRefreshRecyclerController : BaseRecyclerController {
     constructor(args: Bundle) : super(args)
 
     protected var swipeRefreshLayout: SwipeRefreshLayout? = null
-    override fun getViewInstance(context: Context): View = SwipeRefreshRecyclerUI().createView(AnkoContext.create(context, this))
+    override fun getViewInstance(context: Context): View =
+        SwipeRefreshRecyclerUI().createView(AnkoContext.create(context, this))
 
     protected abstract fun onSwipeToRefreshHandler()
 
-    override fun addNewItems(list: List<AbstractItem<*, *>>) {
+    override fun addNewItems(list: List<AbstractItem<*>>) {
         swipeRefreshLayout?.isRefreshing = false
         super.addNewItems(list)
     }
@@ -32,7 +33,7 @@ abstract class BaseSwipeRefreshRecyclerController : BaseRecyclerController {
         super.onDetach(view)
     }
 
-    override fun addItems(list: List<AbstractItem<*, *>>) {
+    override fun addItems(list: List<AbstractItem<*>>) {
         swipeRefreshLayout?.isRefreshing = false
         super.addItems(list)
     }

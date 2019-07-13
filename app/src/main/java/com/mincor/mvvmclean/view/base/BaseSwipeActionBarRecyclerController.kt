@@ -22,11 +22,12 @@ abstract class BaseSwipeActionBarRecyclerController : BaseActionBarRecyclerContr
     constructor(args: Bundle) : super(args)
 
     protected var swipeRefreshLayout: SwipeRefreshLayout? = null
-    override fun getViewInstance(context: Context):View = BaseBackSwipeRecyclerUI().createView(AnkoContext.create(context, this))
+    override fun getViewInstance(context: Context):View =
+        BaseBackSwipeRecyclerUI().createView(AnkoContext.create(context, this))
 
     protected open fun onSwipeRefreshHandler() {}
 
-    override fun addNewItems(list: List<AbstractItem<*, *>>) {
+    override fun addNewItems(list: List<AbstractItem<*>>) {
         swipeRefreshLayout?.isRefreshing = false
         super.addNewItems(list)
     }
