@@ -72,6 +72,7 @@ abstract class BaseRecyclerController : BaseController {
         setRVLayoutManager()     // менеджер лайаута
         setItemDecorator()       // декорации
         setRVCAdapter()          // назначение
+        addClickListener()
         addEventHook()           // для нажатия внутри айтемов
     }
 
@@ -113,7 +114,7 @@ abstract class BaseRecyclerController : BaseController {
         }
     }
 
-    protected open fun addClickListenerToAdapter() {
+    protected open fun addClickListener() {
         mFastItemAdapter.onClickListener = { _, _, item, position ->
             if(item is AbstractItem<*>) onItemClickHandler(item, position)
             false
