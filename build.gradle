@@ -8,14 +8,14 @@ buildscript {
         
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.1'
+        classpath 'com.android.tools.build:gradle:3.4.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 
     ext {
-        appCompatXVersion = '1.0.2'
+        appCompatXVersion = '1.1.0-rc1'
         appCoreXVersion = '1.0.2'
         anko_version = '0.10.8'
         lifecycleVersion = "2.2.0-alpha02"
@@ -29,7 +29,7 @@ buildscript {
         retrofitVersion = "2.6.0"
         retrofitCoroutinesVersion = "1.1.0"
         retrofitLogginVersion = '3.0.0'
-        fastAdapterLib = '3.3.1'
+        fastAdapterLib = '4.1.0-b01'
         fastAdapterCommon = '3.3.1'
         fastAdapterExtension = '3.3.1'
         glideVersion = '4.9.0'

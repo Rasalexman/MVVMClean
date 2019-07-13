@@ -35,8 +35,7 @@ dependencies {
 
     ///------ RECYCLER VIEW ADAPTER
     implementation("com.mikepenz:fastadapter:$fastAdapterLib@aar") { transitive = true }
-    implementation "com.mikepenz:fastadapter-commons:$fastAdapterCommon@aar"
-    implementation "com.mikepenz:fastadapter-extensions:$fastAdapterExtension@aar"
+    implementation "com.mikepenz:fastadapter-extensions-ui:${fastAdapterLib}"
 
     //----- CONDUCTOR
     implementation "com.bluelinelabs:conductor:$conductorVersion"
