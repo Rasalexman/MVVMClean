@@ -77,8 +77,10 @@ class MovieViewHolder(view: View) : FastAdapter.ViewHolder<MovieUI>(view)  {
                         textSize = Consts.TEXT_SIZE_MEDIUM
                         textColor = color(R.color.colorSecondaryText)
                         ellipsize = TextUtils.TruncateAt.END
+                        maxLines = 8
                     }.lparams(matchParent, matchParent) {
                         topMargin = dip8()
+                        bottomMargin = dip8()
                     }
 
                 }.lparams(matchParent) {
