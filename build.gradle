@@ -18,13 +18,13 @@ buildscript {
         appCompatXVersion = '1.1.0-rc1'
         appCoreXVersion = '1.0.2'
         anko_version = '0.10.8'
-        lifecycleVersion = "2.2.0-alpha02"
+        lifecycleVersion = "2.2.0-alpha03"
         roomVersion = "2.1.0"
-        conductorVersion = '3.0.0-rc1'
+        conductorVersion = '3.0.0-rc2'
         kotprefVersion = '2.6.0'
-        kodeinVersion6 = "6.3.2"
+        kodeinVersion6 = "6.3.3"
         drawableDSLVersion = "0.3.0"
-        kdispatcherVersion = '1.0.0'
+        kdispatcherVersion = '1.0.1'
         leakCanaryVersion = "1.5.4"
         retrofitVersion = "2.6.0"
         retrofitCoroutinesVersion = "1.1.0"
@@ -33,7 +33,7 @@ buildscript {
         fastAdapterCommon = '3.3.1'
         fastAdapterExtension = '3.3.1'
         glideVersion = '4.9.0'
-        coroutinesManagerVersion = "1.0.0"
+        coroutinesManagerVersion = "1.1.2"
     }
 }
 

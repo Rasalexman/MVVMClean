@@ -21,22 +21,26 @@ class MoviesViewModel(appContext: Context) : ViewModel(), KodeinAware {
     private val getNextMoviesUseCase: GetRemoteMoviesUseCase by instance()
     private val getMoviesUseCase: GetMoviesUseCase by instance()
 
-    private val genreLiveId: MutableLiveData<Int> = MutableLiveData()
-    private val movieList: MutableLiveData<SResult<List<MovieUI>>> = MutableLiveData()
+    private val genreLiveId: MutableLiveData<Int> by lazy { MutableLiveData() }
+    private val movieList: MutableLiveData<SResult<List<MovieUI>>> by lazy { MutableLiveData() }
 
     private var isLocalDataFetched = false
 
-    private val startPageLiveData: LiveData<SResult<List<MovieUI>>> = genreLiveId.switchMap { genreId ->
-        liveData(context = viewModelScope.coroutineContext + Dispatchers.IO) {
-            emit(loading())
-            emitSource(getMoviesUseCase(genreId))
+    private val startPageLiveData: LiveData<SResult<List<MovieUI>>> by lazy {
+        genreLiveId.switchMap { genreId ->
+            liveData(context = viewModelScope.coroutineContext + Dispatchers.IO) {
+                emit(loading())
+                emitSource(getMoviesUseCase(genreId))
+            }
         }
     }
 
-    private val nextPageLiveData: LiveData<SResult<List<MovieUI>>> = movieList.switchMap {
-        liveData(context = viewModelScope.coroutineContext + Dispatchers.IO) {
-            emit(loading())
-            emit(getNextMoviesUseCase.execute(genreLiveId.value))
+    private val nextPageLiveData: LiveData<SResult<List<MovieUI>>> by lazy {
+        movieList.switchMap {
+            liveData(context = viewModelScope.coroutineContext + Dispatchers.IO) {
+                emit(loading())
+                emit(getNextMoviesUseCase.execute(genreLiveId.value))
+            }
         }
     }
 

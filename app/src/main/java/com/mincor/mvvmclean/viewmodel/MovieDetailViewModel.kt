@@ -10,14 +10,16 @@ class MovieDetailViewModel(
 ) : ViewModel() {
 
     private val movieLiveId: MutableLiveData<Int> = MutableLiveData()
-    private val movieDetails = movieLiveId.switchMap { movieId ->
-        liveData(context = viewModelScope.coroutineContext + Dispatchers.IO) {
-            emit(loading())
-            emitSource(getMovieDetailUseCase(movieId))
+    private val movieDetailsLiveData by lazy {
+        movieLiveId.switchMap { movieId ->
+            liveData(context = viewModelScope.coroutineContext + Dispatchers.IO) {
+                emit(loading())
+                emitSource(getMovieDetailUseCase(movieId))
+            }
         }
     }
 
-    fun getMovieDetails() = movieDetails
+    fun getMovieDetails() = movieDetailsLiveData
 
     fun setMovieId(movieId: Int) {
         movieLiveId.value = movieId

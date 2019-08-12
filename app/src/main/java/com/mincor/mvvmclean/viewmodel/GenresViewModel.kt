@@ -14,11 +14,12 @@ class GenresViewModel(
     private val getGenresUseCase: GetGenresUseCase
 ) : ViewModel() {
 
-    private val dataList: LiveData<SResult<List<GenreUI>>> =
+    private val dataListLiveData: LiveData<SResult<List<GenreUI>>> by lazy {
         liveData(context = viewModelScope.coroutineContext + Dispatchers.IO) {
             emit(loading())
             emit(getGenresUseCase.execute())
         }
+    }
 
-    fun getDataList() = dataList
+    fun getDataList() = dataListLiveData
 }
