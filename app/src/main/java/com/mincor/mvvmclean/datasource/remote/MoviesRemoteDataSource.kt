@@ -27,15 +27,15 @@ class MoviesRemoteDataSource(
 
     override suspend fun getByGenreId(genreId: Int): SResult<List<MovieModel>> =
         if(isCanChangePage) {
-            requestHandler(genreId = genreId, page = currentPage)
+            requestHandler(genreId = genreId, page = currentPage, needChangePage = true)
         } else emptyResult()
 
-    private suspend fun requestHandler(genreId: Int, page: Int) = mutex.withLock {
+    private suspend fun requestHandler(genreId: Int, page: Int, needChangePage: Boolean = true) = mutex.withLock {
         when (val result = moviesApi.getMoviesListByGenreId(genreId, page).awaitResult()) {
             is Result.Ok -> {
                 log { "HERE IS A RESULT OK ${result.value}" }
                 val resultValue = result.value
-                changePage(resultValue)
+                if(needChangePage) changePage(resultValue)
                 successResult(resultValue.results)
             }
             is Result.Error -> {
@@ -49,6 +49,9 @@ class MoviesRemoteDataSource(
         }
     }
 
+    override suspend fun getNewMoviesByGenreId(genreId: Int): SResult<List<MovieModel>> {
+        return requestHandler(genreId = genreId, page = 1, needChangePage = false)
+    }
 
     override suspend fun getMovieDetails(movieId: Int): SResult<MovieModel> {
         return when(val result = moviesApi.getMovieDetails(movieId).awaitResult()) {

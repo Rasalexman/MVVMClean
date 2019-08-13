@@ -27,22 +27,31 @@ abstract class BaseSwipeActionBarRecyclerController : BaseActionBarRecyclerContr
 
     protected open fun onSwipeRefreshHandler() {}
 
-    override fun addNewItems(list: List<AbstractItem<*>>) {
-        swipeRefreshLayout?.isRefreshing = false
-        super.addNewItems(list)
-    }
-
-    override fun showError(error: String?) {
-        swipeRefreshLayout?.isRefreshing = false
-        super.showError(error)
-    }
-
     override fun onDetach(view: View) {
-        swipeRefreshLayout?.isRefreshing = false
+        hideLoading()
         super.onDetach(view)
     }
 
+    override fun showLoading() {
+        hideSwipeLoading()
+        super.showLoading()
+    }
+
+    override fun hideLoading() {
+        hideSwipeLoading()
+        super.hideLoading()
+    }
+
+    protected fun showSwipeLoading() {
+        swipeRefreshLayout?.isRefreshing = true
+    }
+
+    protected fun hideSwipeLoading() {
+        swipeRefreshLayout?.isRefreshing = false
+    }
+
     override fun onDestroyView(view: View) {
+        hideLoading()
         swipeRefreshLayout?.setOnRefreshListener(null)
         swipeRefreshLayout = null
         super.onDestroyView(view)

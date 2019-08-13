@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
+import com.mikepenz.fastadapter.diff.FastAdapterDiffUtil
 import com.mikepenz.fastadapter.items.AbstractItem
 import com.mikepenz.fastadapter.ui.items.ProgressItem
 import com.mincor.mvvmclean.R
@@ -77,17 +78,17 @@ abstract class BaseRecyclerController : BaseController {
     }
 
     open fun showItems(list: List<AbstractItem<*>>) {
+        hideLoading()
         if (list.isNotEmpty()) {
-            itemAdapter.apply {
-                clear()
-                setNewList(list)
-            }
+            FastAdapterDiffUtil[itemAdapter] = list
+            scrollToTop()
         }
     }
 
     open fun addNewItems(list: List<AbstractItem<*>>) {
+        hideLoading()
         if (list.isNotEmpty()) {
-            itemAdapter.add(0, list)
+            FastAdapterDiffUtil[itemAdapter] = FastAdapterDiffUtil.calculateDiff(itemAdapter, list)
             scrollToTop()
         }
     }

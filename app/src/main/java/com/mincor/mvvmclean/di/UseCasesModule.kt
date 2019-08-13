@@ -5,10 +5,7 @@ import com.mincor.mvvmclean.domain.usecases.details.GetRemoteDetailsUseCase
 import com.mincor.mvvmclean.domain.usecases.genres.GetGenresUseCase
 import com.mincor.mvvmclean.domain.usecases.genres.GetLocalGenresUseCase
 import com.mincor.mvvmclean.domain.usecases.genres.GetRemoteGenresUseCase
-import com.mincor.mvvmclean.domain.usecases.movies.GetCachedMoviesUseCase
-import com.mincor.mvvmclean.domain.usecases.movies.GetMovieDetailUseCase
-import com.mincor.mvvmclean.domain.usecases.movies.GetMoviesUseCase
-import com.mincor.mvvmclean.domain.usecases.movies.GetRemoteMoviesUseCase
+import com.mincor.mvvmclean.domain.usecases.movies.*
 import org.kodein.di.Kodein
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
@@ -44,6 +41,11 @@ val useCasesModule = Kodein.Module("usecases_module") {
     }
     bind<GetRemoteGenresUseCase>() with provider {
         GetRemoteGenresUseCase(
+            instance()
+        )
+    }
+    bind<GetNewMoviesUseCase>() with provider {
+        GetNewMoviesUseCase(
             instance()
         )
     }

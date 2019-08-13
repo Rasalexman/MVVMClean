@@ -29,6 +29,12 @@ class MoviesRepository(
             .mapListTo()
     }
 
+    suspend fun getNewRemoteMovies(genreId: Int): SResult<List<MovieEntity>> {
+        return remoteDataSource
+            .getNewMoviesByGenreId(genreId)
+            .mapListTo()
+    }
+
     suspend fun saveMovies(data: List<MovieEntity>) {
         hasLocalResults = data.isNotEmpty()
         localDataSource.insertAll(data)

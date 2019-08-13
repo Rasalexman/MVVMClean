@@ -49,17 +49,18 @@ abstract class BaseSwipeRefreshRecyclerController : BaseRecyclerController {
         super.showError(error)
     }
 
-    private inner class SwipeRefreshRecyclerUI : AnkoComponent<BaseSwipeRefreshRecyclerController> {
+    private class SwipeRefreshRecyclerUI : AnkoComponent<BaseSwipeRefreshRecyclerController> {
         override fun createView(ui: AnkoContext<BaseSwipeRefreshRecyclerController>): View = with(ui) {
-            swipeRefreshLayout = swipeRefreshLayout {
+            val swipeRefreshLayout = swipeRefreshLayout {
                 onRefresh {
-                    onSwipeToRefreshHandler()
+                    ui.owner.onSwipeToRefreshHandler()
                 }
-                recycler = recyclerView {
+                ui.owner.recycler = recyclerView {
                     lparams(matchParent, matchParent)
                 }
             }
-            swipeRefreshLayout!!
+            ui.owner.swipeRefreshLayout = swipeRefreshLayout
+            swipeRefreshLayout
         }
     }
 }

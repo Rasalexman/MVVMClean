@@ -5,11 +5,11 @@ apply plugin: 'kotlin-kapt'
 apply from: 'keystore.gradle'//the file, containing the API key
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     defaultConfig {
         applicationId "com.mincor.mvvmclean"
         minSdkVersion 19
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -21,6 +21,15 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 }
 
@@ -36,6 +45,7 @@ dependencies {
     ///------ RECYCLER VIEW ADAPTER
     implementation("com.mikepenz:fastadapter:$fastAdapterLib@aar") { transitive = true }
     implementation "com.mikepenz:fastadapter-extensions-ui:${fastAdapterLib}"
+    implementation "com.mikepenz:fastadapter-extensions-diff:${fastAdapterLib}"
 
     //----- CONDUCTOR
     implementation "com.bluelinelabs:conductor:$conductorVersion"

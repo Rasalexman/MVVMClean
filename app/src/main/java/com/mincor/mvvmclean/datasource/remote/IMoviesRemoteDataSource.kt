@@ -9,5 +9,7 @@ interface IMoviesRemoteDataSource {
 
     suspend fun getMovieDetails(movieId: Int): SResult<MovieModel>
 
+    suspend fun getNewMoviesByGenreId(genreId: Int): SResult<List<MovieModel>>
+
     fun clearPage()
 }
