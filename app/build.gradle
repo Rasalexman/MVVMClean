@@ -41,6 +41,8 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
+    // alternately - if using Java8, use the following instead of lifecycle-compiler
+    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion"
 
     ///------ RECYCLER VIEW ADAPTER
     implementation("com.mikepenz:fastadapter:$fastAdapterLib@aar") { transitive = true }
@@ -102,5 +104,4 @@ dependencies {
 
     kapt "androidx.room:room-compiler:$roomVersion"
     kapt "com.github.bumptech.glide:compiler:$glideVersion"
-    kapt "androidx.lifecycle:lifecycle-compiler:$lifecycleVersion"
 }

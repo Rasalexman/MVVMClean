@@ -17,4 +17,3 @@ data class GenreUI(val id: Int, val name: String) : BaseRecyclerUI<GenreViewHold
         GenreViewHolder.createView(AnkoContext.Companion.create(ctx, this))
     override fun getViewHolder(v: View) = GenreViewHolder(v)
 }
-

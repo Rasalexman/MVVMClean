@@ -376,7 +376,7 @@ fun Controller.popCurrentController() {
  **/
 inline fun <reified VM : ViewModel, T> T.viewModel(): Lazy<VM> where T : KodeinAware, T : LifecycleController {
     return lazy(LazyThreadSafetyMode.NONE) {
-        ViewModelProviders.of(this.activity as AppCompatActivity, direct.instance<ViewModelFactory>()).get(VM::class.java)
+        ViewModelProvider(this.activity as AppCompatActivity, direct.instance<ViewModelFactory>())[VM::class.java]
     }
 }
 
